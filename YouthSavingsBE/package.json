@@ -1,0 +1,30 @@
+{
+  "name": "youthsavingsbe",
+  "version": "1.0.0",
+  "description": "BE of YouthSavings",
+  "main": "App.ts",
+  "scripts": {
+    "start": "nodemon src/App.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seaw24/YouthSavings.git"
+  },
+  "author": "Seaw_24",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Seaw24/YouthSavings/issues"
+  },
+  "homepage": "https://github.com/Seaw24/YouthSavings#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@types/node": "^22.9.0",
+    "express": "^4.21.1"
+  }
+}

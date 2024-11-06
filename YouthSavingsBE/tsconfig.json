@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                          // Specify ECMAScript target version
+    "module": "NodeNext",           
+    "moduleResolution": "NodeNext",             // Specify module code generation
+    "outDir": "dist",                       // Redirect output structure to the directory
+    "sourceMap": true 
+},
+  "include": [
+    "src/**/*.ts"                                // Include all TypeScript files in the src directory
+  ]
+}
+  
+
