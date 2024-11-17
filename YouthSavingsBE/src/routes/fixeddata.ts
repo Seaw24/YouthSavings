@@ -5,12 +5,14 @@ import {
   updateFixedData,
 } from "../controllers/Fixeddata";
 
+import auth from "../middleware/authentication";
+
 const routerFixedData = express.Router();
 
 routerFixedData
   .route("/:id")
-  .get(getFixedData)
-  .post(createFixedData)
-  .patch(updateFixedData);
+  .get(auth, getFixedData)
+  .post(auth, createFixedData)
+  .patch(auth, updateFixedData);
 
 export default routerFixedData;

@@ -3,6 +3,8 @@ import { connectDB } from "./db/connect";
 import dotenv from "dotenv";
 import routerFixedData from "./routes/Fixeddata";
 import "express-async-errors";
+import notFound from "./middleware/not-found";
+import errorHandlerMiddleware from "./middleware/error-handler";
 dotenv.config();
 
 const app = express();
@@ -13,6 +15,10 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/v1/fixeddata", routerFixedData);
+
+//Errors handler
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
