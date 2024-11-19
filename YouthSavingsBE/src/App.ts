@@ -1,10 +1,11 @@
 import express from "express";
 import { connectDB } from "./db/connect";
 import dotenv from "dotenv";
-import routerFixedData from "./routes/Fixeddata";
+import routerFixedData from "./routes/fixeddata";
+import routerAuth from "./routes/auth";
 import "express-async-errors";
 import notFound from "./middleware/not-found";
-import errorHandlerMiddleware from "./middleware/error-handler";
+import errorHandlerMiddleware from "./middleware/MiddleWareError";
 dotenv.config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/v1/fixeddata", routerFixedData);
+app.use("/api/v1/auth", routerAuth);
 
 //Errors handler
 app.use(notFound);
