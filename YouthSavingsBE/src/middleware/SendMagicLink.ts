@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+// content
 const html = (token: String) => {
   return `
   <html>
@@ -56,6 +57,7 @@ const html = (token: String) => {
   </html>
     `;
 };
+
 const SendMagicLink = async (email: String, token: String) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

@@ -1,6 +1,7 @@
-import mongoose, { Document, model, Model } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import jwt from "jsonwebtoken";
 
+// user type interface
 interface IUser extends Document {
   name: string;
   email: string;
@@ -9,10 +10,6 @@ interface IUser extends Document {
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Please provide the user name"],
-    },
     email: {
       type: String,
       required: [true, "Please provide user email"],
@@ -22,11 +19,22 @@ const UserSchema = new mongoose.Schema(
       ],
       unique: [true, "Email has already been taken"],
     },
+
+    //name default as email
+
+    name: {
+      type: String,
+      default: function () {
+        return this.email;
+      },
+    },
   },
   {
     timestamps: true,
   }
 );
+
+//Functions
 
 UserSchema.methods.createToken = function (): string {
   return jwt.sign(
