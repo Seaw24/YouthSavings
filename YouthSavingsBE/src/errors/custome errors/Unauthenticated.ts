@@ -5,3 +5,5 @@ class UnauthenticatedError extends BaseError {
     super(message, StatusCodes.UNAUTHORIZED);
   }
 }
+
+export default UnauthenticatedError;

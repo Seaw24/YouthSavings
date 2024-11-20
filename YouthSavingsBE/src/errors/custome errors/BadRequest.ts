@@ -6,3 +6,5 @@ class BadRequestCustomeError extends BaseError {
     super(message, StatusCodes.BAD_REQUEST);
   }
 }
+
+export default BadRequestCustomeError;

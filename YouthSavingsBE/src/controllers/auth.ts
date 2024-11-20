@@ -1,13 +1,13 @@
 import User from "../models/User";
 import SendMagicLink from "../middleware/SendMagicLink";
 import { Response, Request } from "express";
+import { BadRequestError } from "../errors";
 
 const login = async (req: Request, res: Response): Promise<void> => {
   // destructing email
   const { email } = req.body;
   if (!email) {
-    res.status(400).json({ message: "Email is required" });
-    return;
+    throw new BadRequestError("Please provide a valid email address");
   }
   let user = await User.findOne({ email });
 

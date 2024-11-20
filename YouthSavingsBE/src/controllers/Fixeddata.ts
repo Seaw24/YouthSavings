@@ -1,3 +1,4 @@
+import { NotFoundError } from "../errors";
 import Fixeddata from "../models/Fixeddata";
 import { Request, Response } from "express";
 
@@ -5,10 +6,9 @@ const getFixedData = async (req: Request, res: Response): Promise<void> => {
   const { id: userId } = req.params;
   const fixedData = await Fixeddata.findOne({ userId });
   if (!fixedData) {
-    res
-      .status(404)
-      .json({ message: `Fixed data not found with this user id: ${userId}` });
-    return;
+    throw new NotFoundError(
+      `Fixed data not found with this user id: ${userId}`
+    );
   }
   res.status(200).json(fixedData);
 };
@@ -25,10 +25,9 @@ const updateFixedData = async (req: Request, res: Response): Promise<void> => {
     runValidators: true,
   });
   if (!updatedFixedData) {
-    res
-      .status(404)
-      .json({ message: `Fixed data not found with this user id: ${userId}` });
-    return;
+    throw new NotFoundError(
+      `Fixed data not found with this user id: ${userId}`
+    );
   }
   res.status(200).json(updatedFixedData);
 };
