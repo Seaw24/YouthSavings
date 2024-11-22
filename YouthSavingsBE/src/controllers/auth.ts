@@ -3,7 +3,7 @@ import SendMagicLink from "../middleware/SendMagicLink";
 import { Response, Request } from "express";
 import { BadRequestError } from "../errors";
 
-const login = async (req: Request, res: Response): Promise<void> => {
+const login = async (req: Request, res: Response) => {
   // destructing email
   const { email } = req.body;
   if (!email) {
@@ -25,7 +25,9 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
   res
     .status(200)
-    .json({ message: `Magic link has been sent to ${user.email}` });
+    .json({
+      message: `Magic link has been sent to ${user.email} and token is ${token}`,
+    });
 };
 
 export { login };

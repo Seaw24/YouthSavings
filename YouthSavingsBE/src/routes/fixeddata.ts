@@ -10,7 +10,7 @@ import auth from "../middleware/authentication";
 const routerFixedData = express.Router();
 
 routerFixedData
-  .route("/:id")
+  .route("/")
   .get(auth, getFixedData)
   .post(auth, createFixedData)
   .patch(auth, updateFixedData);
