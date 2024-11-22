@@ -48,7 +48,7 @@ const html = (token: String) => {
             You are receiving this email because you have
             requested the reset of the password for your account.
           </div>
-          <a href="http://localhost:3000/reset-password/${token}" class="button"
+          <a href="http://localhost:5000/reset-password/${token}" class="button"
             >LOGIN</a
           >
         </div>

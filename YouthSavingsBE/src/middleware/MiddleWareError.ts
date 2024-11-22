@@ -11,7 +11,7 @@ const errorHandlerMiddleware = (
     msg: err.message || "Something went wrong try again later",
   };
 
-  res.status(customError.statusCode).json({ msg: err.message });
+  res.status(customError.statusCode).json({ msg: customError.msg });
 };
 
 export default errorHandlerMiddleware;

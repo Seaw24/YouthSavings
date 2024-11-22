@@ -1,9 +1,9 @@
 import express from "express";
+import "express-async-errors";
 import { connectDB } from "./db/connect";
 import dotenv from "dotenv";
 import routerFixedData from "./routes/fixeddata";
 import routerAuth from "./routes/auth";
-import "express-async-errors";
 import notFound from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/MiddleWareError";
 dotenv.config();

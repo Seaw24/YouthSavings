@@ -1,10 +1,11 @@
 import { NotFoundError } from "../errors";
 import Fixeddata from "../models/Fixeddata";
-import { Request, Response } from "express";
-
-const getFixedData = async (req: Request, res: Response): Promise<void> => {
-  const { id: userId } = req.params;
-  const fixedData = await Fixeddata.findOne({ userId });
+import Controller from "../type/req&res";
+const getFixedData: Controller = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+  const fixedData = await Fixeddata.findOne({ createdBy: userId });
   if (!fixedData) {
     throw new NotFoundError(
       `Fixed data not found with this user id: ${userId}`
@@ -13,17 +14,27 @@ const getFixedData = async (req: Request, res: Response): Promise<void> => {
   res.status(200).json(fixedData);
 };
 
-const createFixedData = async (req: Request, res: Response): Promise<void> => {
+const createFixedData: Controller = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+  req.body.createdBy = userId;
   const newFixedData = await Fixeddata.create(req.body);
   res.status(201).json(newFixedData);
 };
 
-const updateFixedData = async (req: Request, res: Response): Promise<void> => {
-  const { id: userId } = req.params;
-  const updatedFixedData = await Fixeddata.findByIdAndUpdate(userId, req.body, {
-    new: true,
-    runValidators: true,
-  });
+const updateFixedData: Controller = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+  const updatedFixedData = await Fixeddata.findOneAndUpdate(
+    { createdBy: userId },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
   if (!updatedFixedData) {
     throw new NotFoundError(
       `Fixed data not found with this user id: ${userId}`
