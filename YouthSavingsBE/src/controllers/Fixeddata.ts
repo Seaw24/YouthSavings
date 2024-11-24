@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { NotFoundError } from "../errors";
 import Fixeddata from "../models/Fixeddata";
 import Controller from "../type/req&res";
@@ -11,7 +12,7 @@ const getFixedData: Controller = async (req, res) => {
       `Fixed data not found with this user id: ${userId}`
     );
   }
-  res.status(200).json(fixedData);
+  res.status(StatusCodes.OK).json(fixedData);
 };
 
 const createFixedData: Controller = async (req, res) => {
@@ -20,7 +21,7 @@ const createFixedData: Controller = async (req, res) => {
   } = req;
   req.body.createdBy = userId;
   const newFixedData = await Fixeddata.create(req.body);
-  res.status(201).json(newFixedData);
+  res.status(StatusCodes.CREATED).json(newFixedData);
 };
 
 const updateFixedData: Controller = async (req, res) => {
@@ -40,7 +41,7 @@ const updateFixedData: Controller = async (req, res) => {
       `Fixed data not found with this user id: ${userId}`
     );
   }
-  res.status(200).json(updatedFixedData);
+  res.status(StatusCodes.OK).json(updatedFixedData);
 };
 
 export { getFixedData, createFixedData, updateFixedData };

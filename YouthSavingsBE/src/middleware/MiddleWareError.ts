@@ -11,7 +11,30 @@ const errorHandlerMiddleware = (
     msg: err.message || "Something went wrong try again later",
   };
 
-  res.status(customError.statusCode).json({ msg: customError.msg });
+  switch (err.name) {
+    case "ValidationError":
+      customError.msg = Object.values(err.errors).map(
+        (item: any) => item.message
+      );
+      customError.statusCode = StatusCodes.BAD_REQUEST;
+      break;
+    case "CastError":
+      customError.msg =
+        "No item found with id :" +
+        Object.values(err.value)
+          .map((item: any) => item)
+          .join(",");
+      customError.statusCode = StatusCodes.NOT_FOUND;
+      break;
+  }
+  /*  res.status(customError.statusCode).json({
+    msg: err,
+  });
+}; */
+
+  res.status(customError.statusCode).json({
+    msg: Array.isArray(customError.msg) ? customError.msg : [customError.msg],
+  });
 };
 
 export default errorHandlerMiddleware;

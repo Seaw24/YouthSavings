@@ -2,6 +2,7 @@ import User from "../models/User";
 import SendMagicLink from "../middleware/SendMagicLink";
 import { Response, Request } from "express";
 import { BadRequestError } from "../errors";
+import { StatusCodes } from "http-status-codes";
 
 const login = async (req: Request, res: Response) => {
   // destructing email
@@ -23,11 +24,9 @@ const login = async (req: Request, res: Response) => {
   //send token to the email
   await SendMagicLink(user.email, token);
 
-  res
-    .status(200)
-    .json({
-      message: `Magic link has been sent to ${user.email} and token is ${token}`,
-    });
+  res.status(StatusCodes.OK).json({
+    message: `Magic link has been sent to ${user.email} and token is ${token}`,
+  });
 };
 
 export { login };
