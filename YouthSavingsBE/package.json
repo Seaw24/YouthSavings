@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "BE of YouthSavings",
   "main": "App.ts",
-  "type": "module",
   "scripts": {
-    "start": "node src/App.ts",
+    "start": "nodemon src/App.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
