@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "BE of YouthSavings",
   "main": "App.ts",
+  "type": "module",
   "scripts": {
     "start": "node src/App.ts",
     "build": "tsc",

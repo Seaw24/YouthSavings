@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { NotFoundError } from "../errors";
 import Updatingdata from "../models/Updatingdata";
-import Controller from "../type/req&res";
+import { Controller } from "../type/indexTypes";
 
 const getUpdatingData: Controller = async (req, res) => {
   const { user: userId } = req;
@@ -11,7 +11,7 @@ const getUpdatingData: Controller = async (req, res) => {
   if (!updatingData) {
     //handle with middle ware already so basically don't need the message
     throw new NotFoundError(
-      `Updating data not found with this user id: ${userId.toString()}`
+      `Updating data not found with this user id: ${userId}`
     );
   }
 
@@ -28,7 +28,7 @@ const updateUpdatingData: Controller = async (req, res) => {
 
   if (!updatedUpdatingData) {
     throw new NotFoundError(
-      `Updating data not found with this user id: ${userId.toString()}`
+      `Updating data not found with this user id: ${userId}`
     );
   }
 

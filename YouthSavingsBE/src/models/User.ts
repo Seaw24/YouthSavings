@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 
 // user type interface
 interface IUser extends Document {
+  magicToken: string;
+  magicTokenExpires: Date;
   name: string;
   email: string;
   createToken(): string;
@@ -10,6 +12,14 @@ interface IUser extends Document {
 
 const UserSchema = new mongoose.Schema(
   {
+    magicToken: {
+      type: String,
+      default: null,
+    },
+    magicTokenExpires: {
+      type: Date,
+      default: null,
+    },
     email: {
       type: String,
       required: [true, "Please provide user email"],
