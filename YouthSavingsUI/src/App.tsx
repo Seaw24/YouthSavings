@@ -14,7 +14,7 @@ import History from "./Pages/History/History";
 import HomePageLogin from "./Pages/Hompage/HomePageLogin";
 import { signal, computed } from "@preact/signals";
 
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = "https://youthsavings-production.up.railway.app/";
 axios.defaults.withCredentials = true;
 //plan
 export const planMonth = signal(12);

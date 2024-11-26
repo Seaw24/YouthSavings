@@ -11,6 +11,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import cors from "cors";
+import routerMagicLink from "./routes/magicLink";
 dotenv.config();
 
 const app = express();
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/v1/fixeddata", routerFixedData);
 app.use("/api/v1/auth", routerAuth);
+app.use("/ap1/v1/magicLink", routerMagicLink);
 app.use("/api/v1/updatingdata", routerUpdatingData);
 
 //Errors handler

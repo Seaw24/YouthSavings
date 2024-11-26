@@ -27,7 +27,7 @@ const HomePage = () => {
         </div>
         <div className="flex w-[56%] justify-around ">
           <NavLink
-            to={"savings"}
+            to={"login"}
             className="bg-neutral-200 border-neutral-950 border   text-2xl py-4 px-8 rounded-xl  
                 h-[clamp(1rem,5vw,3.2rem)] w-[clamp(2rem,20vw,11rem)] items-center text-[clamp(0.8rem,1.5vw,1.5rem)] flex  font-bold justify-center"
           >
@@ -39,7 +39,7 @@ const HomePage = () => {
             className="button text-2xl  rounded-xl  
                 h-[clamp(1rem,5vw,3.2rem)] w-[clamp(2rem,20vw,11rem)]  text-[clamp(0.8rem,1.5vw,1.5rem)] font-bold text-shadow-lg  items-center flex  justify-center"
           >
-            Start Saving
+            Play
           </NavLink>
         </div>
       </div>
