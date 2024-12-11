@@ -14,7 +14,7 @@ const getFixedData: Controller = async (req, res) => {
 };
 
 const createFixedData: Controller = async (req, res) => {
-  const { user: userId } = req;
+  const { userId } = req.user;
   req.body.createdBy = userId;
   const newFixedData = await Fixeddata.create(req.body);
   res.status(StatusCodes.CREATED).json(newFixedData);

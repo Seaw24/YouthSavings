@@ -3,7 +3,7 @@ import login from "../controllers/auth";
 
 const routerAuth = express.Router();
 
-routerAuth.route("/login").post(login);
+routerAuth.route("/").post(login);
 
 /* routerAuth.route("/dashboar").post(dashboar);
  */

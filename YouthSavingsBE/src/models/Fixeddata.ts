@@ -15,19 +15,19 @@ const FixedDataSchema = new mongoose.Schema(
   {
     plannedMonth: {
       type: Number,
-      required: [true, "Please provide the planned month"],
+      default: 6,
     },
     income: {
       type: Number,
-      required: [true, "Please provide your average income"],
+      default: 0,
     },
     fundamental: {
       type: Number,
-      required: [true, "Please provide the fundamental"],
+      default: 0,
     },
     niceToHave: {
       type: Number,
-      required: [true, "Please provide the nice to have"],
+      default: 0,
     },
     createdBy: {
       type: String,

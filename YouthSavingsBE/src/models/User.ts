@@ -2,12 +2,14 @@ import mongoose, { Document } from "mongoose";
 import jwt from "jsonwebtoken";
 
 // user type interface
-interface IUser extends Document {
+export interface IUser extends Document {
   magicToken: string;
   magicTokenExpires: Date;
   name: string;
   email: string;
+  refreshToken: string[];
   createToken(): string;
+  createRefreshToken(): string;
 }
 
 const UserSchema = new mongoose.Schema(
@@ -38,6 +40,9 @@ const UserSchema = new mongoose.Schema(
         return this.email;
       },
     },
+    refreshToken: {
+      type: [String],
+    },
   },
   {
     timestamps: true,
@@ -46,11 +51,28 @@ const UserSchema = new mongoose.Schema(
 
 //Functions
 
+UserSchema.methods.createRefreshToken = function (): string {
+  try {
+    const refreshToken = jwt.sign(
+      { userId: this._id, email: this.email },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: process.env.REFRESH_TOKEN_LIFETIME }
+    );
+    this.refreshToken.push(refreshToken);
+    this.save();
+    return refreshToken;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 UserSchema.methods.createToken = function (): string {
   return jwt.sign(
     { userId: this._id, email: this.email },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.TOKEN_LIFETIME }
+    {
+      expiresIn: process.env.TOKEN_LIFETIME,
+    }
   );
 };
 

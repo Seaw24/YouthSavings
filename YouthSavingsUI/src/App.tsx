@@ -1,21 +1,21 @@
+import { Route } from "react-router-dom";
+import { MainLayout, PrivateLayout } from "./barrel/indexLayout";
+import { RouterProvider } from "react-router";
+import { AuthProvider } from "./context/AuthProvider";
 import {
-  Route,
   createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
+  createRoutesFromChildren,
 } from "react-router-dom";
-import axios from "axios";
-import MainLayout from "./Layout/MainLayout";
-import HomePage from "./Pages/Hompage/HomePage";
-import Savings from "./Pages/Savings/Savings";
-import Login from "./Pages/Hompage/componentsHP/Login";
-import Emergency from "./Pages/Emergency/Emergency";
-import History from "./Pages/History/History";
-import HomePageLogin from "./Pages/Hompage/HomePageLogin";
+import {
+  HomePage,
+  Login,
+  Savings,
+  History,
+  Emergency,
+  MagicLinkHandling,
+} from "./barrel/IndexPages";
 import { signal, computed } from "@preact/signals";
 
-axios.defaults.baseURL = "https://youthsavings-production.up.railway.app/";
-axios.defaults.withCredentials = true;
 //plan
 export const planMonth = signal(12);
 export const income = signal(1200);
@@ -34,52 +34,55 @@ export const totalSpending = computed(
   () =>
     fundamentalSpending.value + niceToHaveSpending.value + wasteSpending.value
 );
-``;
 
 //saving
 export const totalSaving = signal(1000);
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
+  createRoutesFromChildren(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<HomePage />} />
-
+      <Route path="/magicLinkHandling" element={<MagicLinkHandling />} />
       <Route path="/login" element={<Login />} />
-
-      <Route path="/savings" element={<Savings />} />
-
-      <Route
-        path="/savings/emergency"
-        element={
-          <Emergency
-            fundamental={fundamental}
-            niceToHave={niceToHave}
-            income={income}
-            totalSaving={totalSaving}
-          />
-        }
-      />
-
-      <Route
-        path="/history"
-        element={
-          <History
-            totalCost={totalCost}
-            niceToHaveSpending={niceToHaveSpending}
-            fundamentalSpending={fundamentalSpending}
-            wasteSpending={wasteSpending}
-            niceToHave={niceToHave}
-            fundamental={fundamental}
-            totalSpending={totalSpending}
-          />
-        }
-      />
+      //private
+      <Route element={<PrivateLayout />}>
+        <Route path="/savings" element={<Savings />} />
+        <Route
+          path="/savings/emergency"
+          element={
+            <Emergency
+              fundamental={fundamental}
+              niceToHave={niceToHave}
+              income={income}
+              totalSaving={totalSaving}
+            />
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <History
+              totalCost={totalCost}
+              niceToHaveSpending={niceToHaveSpending}
+              fundamentalSpending={fundamentalSpending}
+              wasteSpending={wasteSpending}
+              niceToHave={niceToHave}
+              fundamental={fundamental}
+              totalSpending={totalSpending}
+            />
+          }
+        />
+      </Route>
     </Route>
   )
 );
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
 
 export default App;

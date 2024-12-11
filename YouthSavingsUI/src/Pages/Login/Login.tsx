@@ -1,5 +1,5 @@
-import "../../../index.css";
-import { BackgroundGradient } from "../../../components/ui/background-gradient";
+import "../../index.css";
+import { BackgroundGradient } from "../../components/ui/background-gradient";
 import axios from "axios";
 import { signal } from "@preact/signals";
 import {
@@ -9,12 +9,12 @@ import {
   IconBrandTiktok,
 } from "@tabler/icons-react";
 
-const email = signal("");
+let email = signal("");
 
 const Login = () => {
   function requestMagicLink(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    axios.post("/api");
+    axios.post("/magicLink", { email: email.value });
   }
   return (
     <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-[40%] ">
@@ -39,14 +39,18 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
+              onInput={(e) => (email.value = e.currentTarget.value)}
               placeholder="Yuamikami@vx.com"
               required
-              className=" rounded-md  p-2 w-full bg-primary  aspect-[7/1] "
+              className=" rounded-md  p-2 w-full bg-primary  aspect-[7/1] text-black ~text-xs/base"
             />
 
             <button
               type="submit"
-              className=" w-full bg-highlight text-black font-bold aspect-[9/1] rounded-md "
+              className="w-full bg-highlight text-black font-bold aspect-[9/1] rounded-md 
+              transition-all duration-150 ease-in-out
+              hover:bg-opacity-90
+              active:bg-opacity-100 active:scale-95 active:shadow-inner"
             >
               send
             </button>
@@ -64,7 +68,13 @@ const Login = () => {
   );
 };
 
-const IconAndLabel = ({ icon: Icon, label }) => {
+const IconAndLabel = ({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ElementType;
+  label: string;
+}) => {
   return (
     <button className=" flex items-center bg-stone-100 aspect-[4/1] rounded-md w-[48%] text-gray-700">
       <div className="flex ">
