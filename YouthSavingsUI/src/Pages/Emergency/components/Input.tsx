@@ -4,28 +4,25 @@ import RangeSlider from "./RangeSlider";
 import { computed } from "@preact/signals-react";
 import { BackgroundGradient } from "../../../components/ui/background-gradient";
 import useAxiosPrivate from "../../../hook/usePrivateAxious";
-import { FixeDataType } from "../../../types/FixedDataType";
-import useAuth from "../../../hook/useAuth";
+import { FixedDataType } from "../../../types/FixedDataType";
 const Input = ({
   income,
   fundamental,
   niceToHave,
   totalSaving,
-}: FixeDataType) => {
+}: FixedDataType) => {
   const maxNTH = computed(() => income.value - fundamental.value);
   const maxFundamental = computed(() => income.value - niceToHave.value);
 
   const axiousPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
 
   function updateFixeddata(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(auth.accessToken);
-    axiousPrivate.post("/fixeddata", {
+
+    axiousPrivate.patch("/fixeddata", {
       income: income.value,
       fundamental: fundamental.value,
       niceToHave: niceToHave.value,
-      totalSaving: totalSaving.value,
     });
   }
   return (
@@ -60,13 +57,13 @@ const Input = ({
 
             <div className="w-4/5 ~text-sm/base">
               <div className="text-center ~mb-1/2">
-                {totalSaving.value}/
+                {totalSaving?.value}/
                 <span className="font-extrabold text-shadow-lg text-base">
                   {fundamental.value * 6}
                 </span>
               </div>
               <div className="flex">
-                <ProcessBar funda={totalSaving.value} total={income.value} />
+                <ProcessBar />
               </div>
             </div>
 

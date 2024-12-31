@@ -4,6 +4,7 @@ import { BadRequestError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 
 const login: Controller = async (req, res) => {
+  let status = StatusCodes.OK;
   /*                     Checking magic token                  */
   const cookies = req.cookies;
   const { magicToken } = req.body;
@@ -18,6 +19,11 @@ const login: Controller = async (req, res) => {
   /*  user.magicToken = null;
   user.magicTokenExpires = null;
   await user.save(); */
+  /* ------------------------------------------------------------------------ */
+  /*                      Check if user is new user                          */
+  if (user.__v === 0) {
+    status = StatusCodes.CREATED;
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                          Check if user has refresh token in the cookie     */
@@ -54,7 +60,7 @@ const login: Controller = async (req, res) => {
     domain: "localhost", // This helps with cross-port cookie sharing
   });
   res
-    .status(StatusCodes.OK)
+    .status(status)
     .json({ name: user.name, accessToken: sessionToken, email: user.email });
 };
 

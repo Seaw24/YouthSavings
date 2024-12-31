@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 export interface IUpdatingData extends mongoose.Document {
-  fundamental: number;
-  niceToHave: number;
-  waste: number;
+  amount: number;
+  date: Date;
+  type: string;
   createdBy: string;
   createdAt: Date;
   updatedAt: Date;
@@ -11,20 +11,26 @@ export interface IUpdatingData extends mongoose.Document {
 
 const UpdatingDataSchema = new mongoose.Schema(
   {
-    fundamental: {
+    amount: {
       type: Number,
-      required: [true, "Please provide the fundamental"],
-      default: 0,
+      required: [true, "Please provide the amount"],
     },
-    niceToHave: {
-      type: Number,
-      required: [true, "Please provide the nice to have"],
-      default: 0,
+    date: {
+      type: Date,
+      required: [true, "Please provide the date"],
+      index: true,
     },
-    waste: {
-      type: Number,
-      required: [true, "Please provide the waste"],
-      default: 0,
+    type: {
+      type: String,
+      required: [true, "Please provide the type"],
+      enum: {
+        values: ["fundamental", "nice-to-have", "waste", "income"],
+        message: "Type is either: fundamental, nice-to-have, waste, income",
+      },
+    },
+    description: {
+      type: String,
+      default: "",
     },
     createdBy: {
       type: String,
@@ -35,6 +41,8 @@ const UpdatingDataSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+UpdatingDataSchema.index({ createBy: 1, date: -1 });
 
 export default mongoose.model<IUpdatingData>(
   "UpdatingData",
