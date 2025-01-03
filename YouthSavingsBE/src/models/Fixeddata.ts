@@ -19,7 +19,7 @@ const FixedDataSchema = new mongoose.Schema(
     },
     income: {
       type: Number,
-      default: 0,
+      required: [true, "Please provide the income"],
     },
     fundamental: {
       type: Number,

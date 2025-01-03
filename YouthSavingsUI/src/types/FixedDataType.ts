@@ -1,6 +1,7 @@
-export type FixeDataType = {
-  income: { value: number };
-  fundamental: { value: number };
-  niceToHave: { value: number };
-  totalSaving: { value: number };
+import { Signal } from "@preact/signals-react";
+export type FixedDataType = {
+  fundamental: Signal<number>;
+  niceToHave: Signal<number>;
+  income: Signal<number>;
+  totalSaving?: Signal<number>;
 };

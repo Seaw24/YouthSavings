@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors";
 import Fixeddata from "../models/Fixeddata";
 import { Controller } from "../type/indexTypes";
 const getFixedData: Controller = async (req, res) => {
-  const { user: userId } = req;
+  const { userId } = req.user;
   const fixedData = await Fixeddata.findOne({ createdBy: userId });
   if (!fixedData) {
     throw new NotFoundError(
@@ -21,7 +21,7 @@ const createFixedData: Controller = async (req, res) => {
 };
 
 const updateFixedData: Controller = async (req, res) => {
-  const { user: userId } = req;
+  const { userId } = req.user;
   const updatedFixedData = await Fixeddata.findOneAndUpdate(
     { createdBy: userId },
     req.body,
@@ -35,7 +35,7 @@ const updateFixedData: Controller = async (req, res) => {
       `Fixed data not found with this user id: ${userId}`
     );
   }
-  res.status(StatusCodes.OK).json(updatedFixedData);
+  res.status(StatusCodes.CREATED).json(updatedFixedData);
 };
 
 export { getFixedData, createFixedData, updateFixedData };

@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema(
     name: {
       type: String,
       default: function () {
-        return this.email;
+        return this.email.split("@")[0];
       },
     },
     refreshToken: {

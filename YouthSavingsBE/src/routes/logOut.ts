@@ -3,6 +3,6 @@ import logOut from "../controllers/logOut";
 
 const routerlogOut = express.Router();
 
-routerlogOut.route("/").post(logOut);
+routerlogOut.route("/").get(logOut);
 
 export default routerlogOut;

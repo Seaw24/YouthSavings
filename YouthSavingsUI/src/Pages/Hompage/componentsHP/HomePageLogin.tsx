@@ -1,8 +1,7 @@
 import ProcessBar from "../../../components/ProcessBar";
-import { Calendar, PlusCircleIcon, MinusCircleIcon, X } from "lucide-react";
-import { BackgroundGradient } from "../../../components/ui/background-gradient";
+import { PlusCircleIcon, MinusCircleIcon } from "lucide-react";
 import { signal } from "@preact/signals-react";
-import Button from "../../../components/Button";
+import AddingIncomeForm from "./HomePageLoginComponent/AddingIncomeForm";
 import AddingExpenseForm from "./HomePageLoginComponent/AddingExpenseForm";
 
 const addIncome = signal(false);
@@ -33,11 +32,11 @@ const HomePageLogin = ({
 
           <span className="font-bold text-highlight"> /{plannedSaving} </span>
         </div>
-        <ProcessBar size="16/1" />
+        <ProcessBar size="28/1" />
 
         <div className="flex mt-7 gap-16 ">
           {addIncome.value ? (
-            <AddingExpenseForm handleClose={handleAddIncome} />
+            <AddingIncomeForm handleClose={handleAddIncome} />
           ) : (
             <button
               className="button w-fit p-1 rounded-full "
@@ -47,42 +46,8 @@ const HomePageLogin = ({
             </button>
           )}
 
-          {addExpense.value ? ( // adding Expenses
-            <BackgroundGradient key={"addExpense"}>
-              <div className="card ~w-32/96 aspect-[12/8] flex justify-center flex-col ~text-xs/lg text-center items-center">
-                <Button
-                  className="absolute right-3 top-3"
-                  size={"size-7"}
-                  action={handleAddExpense}
-                >
-                  <X size={20} />
-                </Button>
-                <form className="flex w-full h-full  flex-col justify-end items-center gap-9">
-                  <div className="flex flex-col gap-5 ">
-                    <input
-                      type="text"
-                      placeholder=" amount"
-                      className="rounded-lg border-2 border-neutral-800 focus:ring-2 focus:ring-teal-500 relative z-10  text-center text-neutral-800 placeholder:text-neutral-700"
-                    />
-                    <div className="flex flex-row gap-9 justify-center ">
-                      <select className=" rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 w-[60%] bg-stone-900 ">
-                        <option disabled selected hidden value="monthly">
-                          {" "}
-                          Type
-                        </option>
-                        <option value="monthly">Fundamental</option>
-                        <option value="yearly">Nice To Have </option>
-                        <option value="yearly">Waste</option>
-                      </select>
-
-                      <Calendar size={19} />
-                    </div>
-                  </div>
-
-                  <button className="button w-2/3 mb-5 ">Update</button>
-                </form>
-              </div>
-            </BackgroundGradient>
+          {addExpense.value ? (
+            <AddingExpenseForm handleClose={handleAddExpense} />
           ) : (
             <button
               className="button  p-1 size-15 rounded-full"

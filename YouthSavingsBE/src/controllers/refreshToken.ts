@@ -46,8 +46,6 @@ const refreshToken: Controller = async (req, res) => {
     process.env.JWT_REFRESH_SECRET,
     async (err: unknown, payload: CustomJwtPayload) => {
       if (err || !payload) {
-        user.refreshToken = [...newRefreshTokenArray];
-        await user.save();
         throw new UnauthenticatedError(err.toString());
       }
       if (payload.userId !== user._id.toString()) {
@@ -55,6 +53,8 @@ const refreshToken: Controller = async (req, res) => {
       }
     }
   );
+  user.refreshToken = newRefreshTokenArray;
+  await user.save();
 
   //create new token pair if refresh token is valid
   const newRefreshToken = user.createRefreshToken();

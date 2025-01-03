@@ -4,18 +4,14 @@ import { TypewriterEffect } from "../../components/ui/typewriter-effect";
 import { TypewriterEffectSmooth } from "../../components/ui/typewriter-effect";
 import Input from "./components/Input";
 import { BackgroundGradient } from "../../components/ui/background-gradient";
-type EmergencyProps = {
-  fundamental: { value: number };
-  niceToHave: { value: number };
-  income: { value: number };
-  totalSaving: { value: number };
-};
+import { FixedDataType } from "../../types/FixedDataType";
+
 const Emergency = ({
   fundamental,
   niceToHave,
   income,
   totalSaving,
-}: EmergencyProps) => {
+}: FixedDataType) => {
   const title = [
     {
       text: "Emergency",
@@ -60,7 +56,7 @@ const Emergency = ({
         />
 
         <div className="w-1/3">
-          <ProcessBar funda={50} total={100} />
+          <ProcessBar />
         </div>
       </div>
 

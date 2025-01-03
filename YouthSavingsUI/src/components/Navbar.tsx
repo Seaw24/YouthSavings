@@ -1,39 +1,77 @@
 import favicon from "../image/favicon.jpg";
-import React from "react";
 import { NavLink } from "react-router-dom";
+import { Settings, User } from "lucide-react"; // Example icon package
 import Button from "./Button";
+import useAuth from "../hook/useAuth";
 
-type NavbarProps = {
-  history?: boolean;
-};
-
-const Navbar = ({ history }: NavbarProps) => {
+const Navbar = () => {
+  const { auth } = useAuth();
   return (
-    <div className="flex border-opacity-40 h-[clamp(5rem,11vw,10rem)] items-center ~mx-2/6 justify-between">
-      <div className="flex items-center translate-y-[15%] ">
-        <figure>
-          <NavLink to="/" title="Home">
-            <img
-              src={favicon}
-              alt="logo"
-              width="500"
-              height="500"
-              className="w-[clamp(4.2rem,9vw,8rem)] drop-shadow-[0_0_10px_hsl(46,84%,70%)] hover:brightness-125 "
-            />
-          </NavLink>
-        </figure>
-
-        <figcaption className="~text-xs/3xl font-bold  text-shadow-lg text-gray-200 whitespace-nowrap  font-Arial">
-          {history ? "Emergency" : "Youth Savings"}
-        </figcaption>
+    <div className="  flex items-center justify-between ~h-16/24 border-b  border-gray-700 border-transparent ~pr-2/10 pl-2 bg-[hsl(197,100%,4.5%)]">
+      {/* Left Section: Logo and Title */}
+      <div className="flex items-center ">
+        <NavLink
+          to="/"
+          title="Home"
+          className="flex items-center hover:brightness-125 ~gap-0/2"
+        >
+          <img
+            src={favicon}
+            alt="logo"
+            className="~w-10/28 rounded-full drop-shadow-lg "
+          />
+          <h1 className="text-gray-200 font-extrabold ~text-sm/2xl">
+            YouthSavings
+          </h1>
+        </NavLink>
       </div>
-      <nav className="w-fit">
-        <ul className="flex ~gap-4/12 h-full translate-y-1/2">
-          <Button action="/history">History</Button>
-          <Button action="/savings">Savings</Button>
-          <Button action="/login">Login</Button>
-        </ul>
-      </nav>
+      <div className="flex items-center justify-around ~gap-3/11 ">
+        <NavLink
+          to="/savings"
+          className={
+            "text-gray-400 font-bold ~text-xs/lg  hover:brightness-125"
+          }
+        >
+          Market
+        </NavLink>
+        <NavLink
+          to="/history"
+          className={"text-gray-400 font-bold ~text-xs/lg hover:brightness-125"}
+        >
+          History
+        </NavLink>
+        <NavLink
+          to="/savings"
+          className={
+            "text-gray-400 font-bold ~text-xs/lg  hover:brightness-125"
+          }
+        >
+          Savings
+        </NavLink>
+        {!auth.name && (
+          <Button
+            action={"/login"}
+            className={
+              "bg-golden-gradient text-black rounded-lg hover:brightness-125"
+            }
+          >
+            Login
+          </Button>
+        )}
+        {auth.name && (
+          <>
+            <NavLink to="/profile">
+              <User size={32} className="text-gray-200 hover:text-gray-400" />
+            </NavLink>
+            <NavLink to="/settings">
+              <Settings
+                size={32}
+                className="text-gray-200 hover:text-gray-400"
+              />
+            </NavLink>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -19,6 +19,7 @@ const errorHandlerMiddleware = (
       customError.statusCode = StatusCodes.BAD_REQUEST;
       break;
     case "CastError":
+      console.log(err);
       customError.msg =
         "No item found with id :" +
         Object.values(err.value)
