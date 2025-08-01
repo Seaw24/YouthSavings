@@ -1,11 +1,14 @@
+```markdown
+
+  
 
 
-<h1 align="center">YouthSavings</h1>
+YouthSavings
 
-<p align="center">
-  <b>Personal Finance Management for Young People</b><br>
+
+  Personal Finance Management for Young People
   Empowering the next generation to build strong financial habits—save smart, spend wisely, and plan for a secure future.
-</p>
+
 
 ---
 
@@ -62,3 +65,81 @@ No more boring spreadsheets—YouthSavings delivers an interactive, visually app
 
 ### Backend Setup
 
+```
+git clone https://github.com/Seaw24/YouthSavings.git
+cd YouthSavings/YouthSavingsBE
+npm install
+```
+
+Create a `.env` file in `YouthSavingsBE` with:
+```
+MONGODB_URI=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+PORT=5000
+```
+
+Start the backend:
+
+```
+npm run dev
+```
+
+### Frontend Setup
+
+```
+cd ../YouthSavingsUI
+npm install
+```
+
+Create a `.env` file in `YouthSavingsUI` with:
+```
+VITE_API_URL=http://localhost:5000
+```
+
+Start the frontend:
+
+```
+npm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to use the app!
+
+---
+
+## 💡 Usage
+
+1. **Sign Up:** Create an account securely via magic link.
+2. **Personalize:** Set your savings preferences in your user settings.
+3. **Start Saving:** Add new savings goals or contributions.
+4. **Track Progress:** Monitor your journey through the History and Summary dashboards.
+5. **Emergency Fund:** Build peace of mind with dedicated emergency savings tools.
+
+Example: Fetching your savings data via API
+```
+fetch('/api/fixeddata', {
+  headers: { 'Authorization': 'Bearer your_token' }
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome all contributors! To make YouthSavings better:
+
+1. **Fork** this repository.
+2. **Create** a feature branch: `git checkout -b feature/YourFeature`
+3. **Commit** your changes: `git commit -m 'Add YourFeature'`
+4. **Push** to your branch: `git push origin feature/YourFeature`
+5. **Open a pull request** and share your ideas!
+
+Please follow our coding style (TypeScript + React best practices) and include tests where possible.
+
+---
+
+
+  Made with ❤️ by a team dedicated to empowering youth with financial knowledge.
+
+```
