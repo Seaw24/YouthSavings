@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://img.icons8.com/color/96/000000/savings.png" alt="Piggy Bank Icon" width="96" height="96"/>
-</p>
-
 <h1 align="center">YouthSavings</h1>
 
 <p align="center">
